@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моя библиотека фильмов</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Моя библиотека фильмов</h1>
+    </header>
+    <main>
+        <div class="controls">
+            <div class="sort-container">
+                <label for="sort-options">Сортировать по:</label>
+                <select id="sort-options">
+                    <option value="createdAt">Дате добавления</option>
+                    <option value="year">Году выпуска</option>
+                    <option value="title">Алфавиту</option>
+                </select>
+            </div>
+            <div class="filter-container">
+                <label for="genre-filter">Фильтр по жанру:</label>
+                <select id="genre-filter">
+                    <option value="all">Все</option>
+                </select>
+            </div>
+        </div>
+        <div id="movies-container" class="movies-container">
+            <!-- Фильмы будут загружаться сюда через JavaScript -->
+        </div>
+        <div class="add-movie-form">
+            <h2>Добавить фильм</h2>
+            <form id="movie-form">
+                <label for="title">Название:</label>
+                <input type="text" id="title" name="title" required>
+                
+                <label for="director">Режиссёр:</label>
+                <input type="text" id="director" name="director" required>
+                
+                <label for="year">Год:</label>
+                <input type="number" id="year" name="year" min="1800" max="2100" required>
+                
+                <label for="genres">Жанры (через запятую):</label>
+                <input type="text" id="genres" name="genres" required>
+                
+                <label for="rating">Рейтинг:</label>
+                <input type="number" id="rating" name="rating" step="0.1" min="0" max="10" required>
+                
+                <label for="description">Описание:</label>
+                <textarea id="description" name="description" required></textarea>
+                
+                <label for="posterUrl">Ссылка на постер:</label>
+                <input type="text" id="posterUrl" name="posterUrl" required>
+                
+                <button type="submit">Добавить фильм</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Каркас карточки фильма -->
+    <template id="movie-template">
+        <div class="movie-card">
+            <img src="{posterUrl}" alt="{title}">
+            <h3>{title}</h3>
+            <p>Режиссер: {director}</p>
+            <p>Год: {year}</p>
+            <p>Жанры: {genres}</p>
+            <p>Рейтинг: {rating}</p>
+            <div class="menu">
+                <span class="menu-icon">⋮</span>
+                <ul class="menu-dropdown">
+                    <li onclick="showMovieDetails({id})">Подробнее</li>
+                    <li onclick="editMovie({id})">Редактировать</li>
+                    <li onclick="deleteMovie({id})">Удалить</li>
+                </ul>
+            </div>
+        </div>
+    </template>
+    <div id="movie-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 id="modal-title"></h2>
+            <img id="modal-poster" alt="Poster">
+            <p><strong>Режиссёр:</strong> <span id="modal-director"></span></p>
+            <p><strong>Год выпуска:</strong> <span id="modal-year"></span></p>
+            <p><strong>Жанры:</strong> <span id="modal-genres"></span></p>
+            <p><strong>Рейтинг:</strong> <span id="modal-rating"></span></p>
+            <p><strong>Описание:</strong></p>
+            <p id="modal-description"></p>
+            <p><strong>Дата создания:</strong> <span id="modal-created-at"></span></p>
+            <p><strong>Дата обновления:</strong> <span id="modal-updated-at"></span></p>
+        </div>
+    </div>
+    <button id="show-file-info-btn">Показать содержимое файла</button>
+    <script src="script.js"></script>
+</body>
+</html>
